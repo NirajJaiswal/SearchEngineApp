@@ -75,8 +75,8 @@ class SearchViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { response ->
-                    _searchResults.value = response.items
                     _loading.value = false
+                    _searchResults.value = response.items
                 },
                 { error ->
                     _errorMessage.value = "${Constant.ERROR} ${error.message}"

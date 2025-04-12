@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.core.Flowable
 
 /**
  *
+ * @created 12/04/2025
  * @author Niraj Kumar
  *
  * An implementation of [ConnectivityObserver] that uses the Android [ConnectivityManager]
@@ -15,6 +16,7 @@ import io.reactivex.rxjava3.core.Flowable
  * loss, and unavailability via a [Flowable] stream.
  *
  * @param context The Android application context.  Used to access the [ConnectivityManager] system service.
+ *
  */
 class NetworkConnectivityObserver(
     context: Context

@@ -40,9 +40,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.niraj.searchengineapp.presentation.util.Constant
 import com.example.niraj.searchengineapp.presentation.viewmodel.SearchViewModel
 
-
 /**
  *
+ * @created 12/04/2025
  * @author Niraj Kumar
  *
  * Composable function that displays a bottom sheet containing a WebView to display search results.
@@ -50,6 +50,7 @@ import com.example.niraj.searchengineapp.presentation.viewmodel.SearchViewModel
  * @param linkAndTitle A [Pair] containing the URL (link) of the search result and its title.
  * @param searchViewModel The [SearchViewModel] responsible for managing the search state and data.
  * @param onDismiss Callback function to be invoked when the bottom sheet is dismissed.
+ *
  */
 @SuppressLint("SetJavaScriptEnabled")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,6 +86,29 @@ fun SearchResultBottomSheet(
         }
     }
 
+    SearchResultBottomSheetComposable(onDismiss, connectionStatus, linkAndTitle, isLoading, webView)
+}
+
+/**
+ *
+ * Composable function to display a bottom sheet that shows the search result in a WebView.
+ *
+ * @param onDismiss Callback function to be invoked when the bottom sheet is dismissed.
+ * @param connectionStatus Boolean indicating the current network connection status.  `true` if connected, `false` otherwise.
+ * @param linkAndTitle Pair containing the URL (link) and title of the search result. The first element is the URL and the second element is the title.
+ * @param isLoading Boolean indicating whether the WebView content is currently loading.  `true` if loading, `false` otherwise.
+ * @param webView  The WebView instance to display the search result.
+ *
+ */
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun SearchResultBottomSheetComposable(
+    onDismiss: () -> Unit,
+    connectionStatus: Boolean,
+    linkAndTitle: Pair<String, String>,
+    isLoading: Boolean,
+    webView: WebView
+) {
     ModalBottomSheet(
         onDismissRequest = { onDismiss() },
         shape = MaterialTheme.shapes.medium,
@@ -112,7 +136,7 @@ fun SearchResultBottomSheet(
                     .verticalScroll(rememberScrollState()),
             ) {
                 if (isLoading) {
-                    LoadingIndicator(modifier = Modifier.padding(top = 20.dp))
+                    LoadingIndicator(modifier = Modifier.padding(top = 30.dp))
                 } else {
                     AndroidView(modifier = Modifier
                         .fillMaxSize(), factory = { webView }, update = {
@@ -124,6 +148,13 @@ fun SearchResultBottomSheet(
     }
 }
 
+/**
+ *
+ * Composable function for the top section of a screen,typically including a back button and a connection status banner.
+ *
+ * @param onDismiss Callback function to be executed when the back button is clicked.  Usually navigates the user back.
+ * @param connectionStatus Boolean indicating the current connection status (true for connected, false otherwise). This will be reflected in the `ConnectionStatusBanner`.
+ */
 @Composable
 private fun TopSectionComposable(onDismiss: () -> Unit, connectionStatus: Boolean) {
     Row(
@@ -142,7 +173,9 @@ private fun TopSectionComposable(onDismiss: () -> Unit, connectionStatus: Boolea
 
         ConnectionStatusBanner(
             isConnected = connectionStatus,
-            modifier = Modifier.weight(0.85f).padding(end = 10.dp)
+            modifier = Modifier
+                .weight(0.85f)
+                .padding(end = 10.dp)
         )
     }
 }

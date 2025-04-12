@@ -6,6 +6,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
+ * @created 12/04/2025
+ * @author Niraj Kumar
+ *
  *  Interface for interacting with the Stack Overflow API.
  */
 interface StackOverflowApi {
@@ -16,5 +19,4 @@ interface StackOverflowApi {
         @Query("order") order: String = "desc",
         @Query("sort") sort: String = "creation"
     ): Single<StackOverflowResponse>
-
 }

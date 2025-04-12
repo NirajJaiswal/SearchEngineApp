@@ -16,9 +16,10 @@ import javax.inject.Inject
 
 /**
  *
+ * @created 12/04/2025
  * @author Niraj Kumar
  *
- * The main activity of the application.  This activity hosts the search screen
+ * The main activity of the application. This activity hosts the search screen
  * and handles observing network connectivity changes.
  */
 @AndroidEntryPoint

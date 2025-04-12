@@ -21,6 +21,17 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+/**
+ *
+ * @created 12/04/2025
+ * @author Niraj Kumar
+ *
+ * Dagger Hilt Module for providing network-related dependencies.
+ *
+ * This module provides dependencies related to network communication, including
+ * OkHttpClient, Retrofit, and the StackOverflowApi interface. It also provides
+ * a [ConnectivityObserver] for monitoring network connectivity changes.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class NetworkModule {

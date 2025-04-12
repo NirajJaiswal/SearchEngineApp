@@ -3,7 +3,7 @@ package com.example.niraj.searchengineapp.data.model
 import com.google.gson.annotations.SerializedName
 
 /**
- *
+ * @created 12/04/2025
  * @author Niraj Kumar
  *
  * Data class representing a response from the Stack Overflow API.

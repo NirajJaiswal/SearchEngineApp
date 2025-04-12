@@ -16,12 +16,17 @@ import androidx.compose.ui.unit.dp
 import com.example.niraj.searchengineapp.presentation.util.Constant
 
 /**
+ *
+ * @created 12/04/2025
+ * @author Niraj Kumar
+ *
  * Displays a banner indicating the internet connection status.
  *
  * The banner is only visible when there is no internet connection (`isConnected` is `false`).
  * When a connection loss is detected, the banner appears immediately and disappears after a 1-second delay.
  *
  * @param isConnected A boolean indicating whether the device is currently connected to the internet.
+ *
  */
 @Composable
 fun ConnectionStatusBanner(isConnected: Boolean, modifier: Modifier) {
@@ -34,7 +39,7 @@ fun ConnectionStatusBanner(isConnected: Boolean, modifier: Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
 
-    ) {
+        ) {
         Text(
             text = if (isConnected) Constant.CONNECTED else Constant.NO_INTERNET,
             color = Color.White,
@@ -45,5 +50,4 @@ fun ConnectionStatusBanner(isConnected: Boolean, modifier: Modifier) {
         )
     }
 }
-
 

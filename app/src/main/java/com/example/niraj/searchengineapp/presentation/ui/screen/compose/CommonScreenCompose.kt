@@ -12,13 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 /**
+ *
+ * @created 12/04/2025
+ * @author Niraj Kumar
+ *
  * Displays an error message with the specified text.
  *
  * This composable renders a [Text] element displaying the provided [message] with
  * styling to indicate an error state.  The text color is set to the current
- * MaterialTheme's error color, and padding is applied around the text.
  *
  * @param message The error message to display.
+ *
  */
 @Composable
 fun ErrorMessage(message: String) {
@@ -29,12 +33,13 @@ fun ErrorMessage(message: String) {
     )
 }
 
-
 /**
+ *
  * A composable that displays a loading indicator in the center of the screen.
  *
  * @param modifier Modifier to be applied to the loading indicator's container.
  *                 Defaults to filling the maximum available size.
+ *
  */
 @Composable
 fun LoadingIndicator(modifier: Modifier = Modifier) {

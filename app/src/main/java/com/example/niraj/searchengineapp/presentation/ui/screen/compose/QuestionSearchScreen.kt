@@ -1,11 +1,13 @@
 package com.example.niraj.searchengineapp.presentation.ui.screen.compose
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,11 +39,13 @@ import com.example.niraj.searchengineapp.presentation.viewmodel.SearchViewModel
 /**
  *
  * @author Niraj Kumar
+ * @created 12/04/2025
  *
  * The main screen of the application, responsible for displaying the search bar,
  * search results, loading indicators, error messages, and connection status.
  *
  * @param searchViewModel The [SearchViewModel] instance used to manage the UI state and interactions.
+ *
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -91,7 +95,8 @@ fun SearchScreen(searchViewModel: SearchViewModel) {
  * A composable function that displays a search bar with a text field and a search button.
  *
  * @param onSearch A lambda function that is called when the search button is clicked.  It takes the search query as a string argument.
- * @param isConnected A boolean indicating whether the search functionality is enabled (e.g., due to network connectivity).  If false, the text field and button will be disabled.
+ * @param isConnected A boolean indicating whether the search functionality is enabled.
+ *
  */
 @Composable
 private fun SearchBar(onSearch: (String) -> Unit, isConnected: Boolean) {
@@ -137,11 +142,18 @@ private fun SearchBar(onSearch: (String) -> Unit, isConnected: Boolean) {
 @Composable
 private fun QuestionList(questions: List<Question>, onItemClick: (String, String) -> Unit) {
     if (questions.isEmpty()) {
-        Icon(
-            imageVector = Icons.Filled.Search,
-            contentDescription = EMPTY,
-            modifier = Modifier.fillMaxSize()
-        )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Search,
+                contentDescription = EMPTY,
+                modifier = Modifier.size(300.dp)
+            )
+        }
+
     } else {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(questions) { question ->
@@ -152,6 +164,7 @@ private fun QuestionList(questions: List<Question>, onItemClick: (String, String
 }
 
 /**
+ *
  * Composable function to display a single question item.
  *
  * @param question The [Question] object containing the question data to be displayed.
@@ -159,6 +172,7 @@ private fun QuestionList(questions: List<Question>, onItemClick: (String, String
  *                 This function is typically used to navigate to the detailed question screen or open the question in a browser.
  *
  * Clicking on the surface triggers the [onItemClick] lambda.
+ *
  */
 @Composable
 private fun QuestionItem(question: Question, onItemClick: (String, String) -> Unit) {
