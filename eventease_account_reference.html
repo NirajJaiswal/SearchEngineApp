@@ -1,0 +1,871 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#FAF5F0;
+  --card:#FFFFFF;
+  --terra:#D4531A;
+  --terra2:#E8622A;
+  --terra-l:#FCEEE7;
+  --terra-ll:#FFF5F0;
+  --line:#EDE0D4;
+  --line2:#F5EDE4;
+  --txt:#1A0A00;
+  --txt2:#5C3D2A;
+  --txt3:#9E7B60;
+  --green:#2E7D32;
+  --greenl:#E8F5E9;
+  --amber:#B45309;
+  --amberl:#FEF3C7;
+  --red:#C62828;
+  --redl:#FFEBEE;
+  --gold:#F59E0B;
+}
+body{font-family:'Poppins',sans-serif;background:#EDE0D4}
+
+.outer{background:#EDE0D4;padding:16px;min-height:100vh}
+
+.top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.app-title{font-size:18px;font-weight:800;color:var(--txt);letter-spacing:-.02em}
+.app-sub{font-size:11px;color:var(--txt3);margin-top:1px}
+
+.screen-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.pill{padding:7px 14px;border-radius:30px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid var(--line);background:var(--card);color:var(--txt3);transition:all .15s;white-space:nowrap;font-family:'Poppins',sans-serif}
+.pill.active{background:var(--terra);color:#fff;border-color:var(--terra)}
+
+.phones-row{display:flex;gap:20px;align-items:flex-start;overflow-x:auto;padding-bottom:8px}
+.phones-row::-webkit-scrollbar{height:4px}
+.phones-row::-webkit-scrollbar-thumb{background:var(--terra-l);border-radius:2px}
+
+.phone-col{flex-shrink:0}
+.phone-os-label{font-size:10px;font-weight:700;color:var(--txt3);text-align:center;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+
+/* iOS frame */
+.ios{
+  width:340px;border-radius:50px;border:9px solid #1C1C1E;
+  background:#1C1C1E;position:relative;overflow:hidden
+}
+.ios-notch{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:110px;height:30px;background:#1C1C1E;border-radius:0 0 20px 20px;
+  z-index:20;display:flex;align-items:center;justify-content:center;gap:5px
+}
+.notch-pill{width:60px;height:11px;border-radius:6px;background:#000}
+.notch-dot{width:11px;height:11px;border-radius:50%;background:#0a0a0a}
+.ios-body{border-radius:42px;overflow:hidden;background:var(--bg)}
+
+/* Android frame */
+.android{
+  width:340px;border-radius:34px;border:7px solid #252525;
+  background:#252525;position:relative;overflow:hidden
+}
+.android-punch{
+  position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  width:12px;height:12px;border-radius:50%;background:#0a0a0a;z-index:20
+}
+.android-body{border-radius:28px;overflow:hidden;background:var(--bg)}
+
+/* Status bars */
+.status-ios{
+  padding:14px 22px 6px;display:flex;justify-content:space-between;align-items:center;
+  background:var(--bg);font-size:12px;font-weight:700;color:var(--txt2)
+}
+.status-android{
+  padding:9px 16px 5px;display:flex;justify-content:space-between;align-items:center;
+  background:var(--bg);font-size:11px;font-weight:700;color:var(--txt2)
+}
+.sig-bars{display:flex;gap:2px;align-items:flex-end}
+.sig-bar{width:3px;border-radius:1px;background:var(--txt2)}
+
+/* Scrollable content */
+.phone-scroll{overflow-y:auto;max-height:620px;background:var(--bg)}
+.phone-scroll::-webkit-scrollbar{width:0}
+
+/* ─── SCREEN COMPONENTS ─── */
+
+/* Top nav bar */
+.navbar{
+  display:flex;align-items:center;padding:10px 18px 14px;
+  background:var(--bg);gap:10px;position:sticky;top:0;z-index:10
+}
+.nav-back{
+  width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);
+  background:var(--card);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0
+}
+.nav-back-svg{width:16px;height:16px;stroke:var(--txt);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.nav-title{font-size:17px;font-weight:700;color:var(--txt);flex:1;text-align:center}
+.nav-action{font-size:13px;font-weight:600;color:var(--terra);cursor:pointer}
+
+/* Profile hero */
+.profile-hero{background:var(--bg);padding:4px 20px 0}
+.avatar-wrap{position:relative;width:82px;height:82px;margin:0 auto 12px}
+.avatar-circle{
+  width:82px;height:82px;border-radius:50%;background:var(--terra-l);
+  border:3px solid var(--terra);display:flex;align-items:center;justify-content:center;
+  font-size:30px;font-weight:800;color:var(--terra);overflow:hidden
+}
+.avatar-img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.edit-badge{
+  position:absolute;bottom:2px;right:2px;width:24px;height:24px;border-radius:50%;
+  background:var(--terra);border:2px solid var(--bg);display:flex;align-items:center;
+  justify-content:center;cursor:pointer
+}
+.verify-badge-wrap{
+  position:absolute;top:0;right:-2px;width:22px;height:22px;border-radius:50%;
+  background:var(--green);border:2px solid var(--bg);display:flex;align-items:center;
+  justify-content:center
+}
+.prof-name{font-size:19px;font-weight:800;color:var(--txt);text-align:center;margin-bottom:3px}
+.prof-info{font-size:12px;color:var(--txt3);text-align:center;margin-bottom:12px}
+.stat-pills{display:flex;justify-content:center;gap:10px;margin-bottom:16px}
+.stat-pill{
+  background:var(--card);border:1.5px solid var(--line);border-radius:14px;
+  padding:10px 14px;text-align:center;min-width:80px
+}
+.stat-num{font-size:18px;font-weight:800;color:var(--txt);display:block;margin-bottom:1px}
+.stat-lbl{font-size:10px;color:var(--txt3);font-weight:500}
+
+/* Section list */
+.section-card{
+  background:var(--card);border-radius:20px;margin:0 16px 12px;
+  overflow:hidden;border:1px solid var(--line2)
+}
+.section-header{
+  padding:14px 18px 6px;font-size:11px;font-weight:700;
+  color:var(--txt3);letter-spacing:.06em;text-transform:uppercase
+}
+.row{
+  display:flex;align-items:center;padding:13px 18px;gap:12px;
+  border-bottom:1px solid var(--line2);cursor:pointer
+}
+.row:last-child{border-bottom:none}
+.row-icon{
+  width:40px;height:40px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0
+}
+.row-text{flex:1}
+.row-title{font-size:14px;font-weight:600;color:var(--txt);margin-bottom:1px}
+.row-sub{font-size:11px;color:var(--txt3)}
+.row-right{display:flex;align-items:center;gap:6px}
+.chevron-svg{width:16px;height:16px;stroke:var(--txt3);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.badge-pill{
+  padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;
+  letter-spacing:.03em;font-family:'Poppins',sans-serif
+}
+.badge-terra{background:var(--terra-l);color:var(--terra)}
+.badge-green{background:var(--greenl);color:var(--green)}
+.badge-amber{background:var(--amberl);color:var(--amber)}
+
+/* Bottom nav */
+.bottom-nav{
+  background:var(--card);border-top:1px solid var(--line2);
+  display:flex;padding:8px 0 12px;position:sticky;bottom:0
+}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.bnav-lbl{font-size:10px;font-weight:600;color:var(--txt3);font-family:'Poppins',sans-serif}
+.bnav-item.active .bnav-lbl{color:var(--terra)}
+.bnav-dot{width:5px;height:5px;border-radius:50%;background:var(--terra);margin:0 auto}
+
+/* Form elements */
+.form-wrap{padding:0 16px}
+.form-group{margin-bottom:14px}
+.form-lbl{font-size:11px;font-weight:600;color:var(--txt3);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;display:block}
+.form-inp{
+  width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);
+  background:var(--card);font-family:'Poppins',sans-serif;font-size:13px;
+  color:var(--txt);font-weight:500
+}
+.form-inp.active{border-color:var(--terra);background:#fff}
+.form-inp-row{display:flex;gap:8px}
+
+/* CTA button */
+.cta-btn{
+  margin:6px 16px 16px;padding:16px;border-radius:30px;background:var(--terra);
+  color:#fff;font-size:15px;font-weight:700;text-align:center;cursor:pointer;
+  font-family:'Poppins',sans-serif;letter-spacing:.02em
+}
+
+/* Address cards */
+.addr-card{
+  background:var(--card);border-radius:16px;margin:0 16px 10px;
+  border:1.5px solid var(--line2);overflow:hidden
+}
+.addr-head{display:flex;gap:10px;padding:14px;align-items:flex-start}
+.addr-ico{
+  width:38px;height:38px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;font-size:18px
+}
+.addr-info{flex:1}
+.addr-title-row{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.addr-name{font-size:14px;font-weight:700;color:var(--txt)}
+.addr-default{background:var(--greenl);color:var(--green);font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px}
+.addr-txt{font-size:11px;color:var(--txt3);line-height:1.5}
+.addr-actions{display:flex;border-top:1px solid var(--line2)}
+.addr-act-btn{flex:1;padding:10px;text-align:center;font-size:12px;font-weight:600;color:var(--terra);cursor:pointer;font-family:'Poppins',sans-serif}
+.addr-act-btn+.addr-act-btn{border-left:1px solid var(--line2)}
+.addr-act-btn.red{color:var(--red)}
+.add-card{
+  border:1.5px dashed var(--terra);border-radius:16px;margin:0 16px 10px;
+  padding:16px;text-align:center;cursor:pointer;background:var(--terra-ll)
+}
+
+/* Payment cards */
+.pay-card{
+  display:flex;align-items:center;gap:12px;padding:14px 18px;
+  border-bottom:1px solid var(--line2);cursor:pointer
+}
+.pay-card:last-child{border-bottom:none}
+.pay-logo{
+  width:48px;height:30px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;overflow:hidden
+}
+.pay-visa{background:#1A1F71;color:#fff}
+.pay-upi{background:var(--terra-l);color:var(--terra);font-size:10px}
+.pay-rupay{background:#138808;color:#fff;font-size:9px}
+.pay-gpay{background:#fff;border:1px solid var(--line);font-size:9px;color:var(--txt2)}
+.pay-info{flex:1}
+.pay-name{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:2px}
+.pay-sub{font-size:11px;color:var(--txt3)}
+.radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.radio.on{border-color:var(--terra)}
+.radio-dot{width:10px;height:10px;border-radius:50%;background:var(--terra)}
+
+/* Notification items */
+.notif-item{
+  display:flex;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line2);
+  align-items:flex-start
+}
+.notif-item:last-child{border-bottom:none}
+.notif-ico{
+  width:40px;height:40px;border-radius:14px;display:flex;align-items:center;
+  justify-content:center;font-size:18px;flex-shrink:0
+}
+.notif-body{flex:1}
+.notif-title{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px}
+.notif-msg{font-size:11px;color:var(--txt3);line-height:1.5}
+.notif-time{font-size:10px;color:var(--txt3);margin-top:4px}
+.unread-dot{width:9px;height:9px;border-radius:50%;background:var(--terra);flex-shrink:0;margin-top:4px}
+
+/* Toggle */
+.toggle-wrap{position:relative;width:44px;height:26px;flex-shrink:0;cursor:pointer}
+.toggle-track{width:44px;height:26px;border-radius:13px;transition:background .2s}
+.toggle-track.on{background:var(--terra)}
+.toggle-track.off{background:var(--line)}
+.toggle-thumb{
+  position:absolute;top:3px;width:20px;height:20px;border-radius:50%;
+  background:#fff;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.15)
+}
+.toggle-thumb.on{left:21px}
+.toggle-thumb.off{left:3px}
+
+/* security score */
+.sec-score{
+  margin:14px 16px;background:var(--terra-l);border-radius:16px;
+  padding:14px;border:1px solid rgba(212,83,26,.15)
+}
+.score-bar-bg{background:rgba(212,83,26,.15);border-radius:6px;height:8px;margin-top:8px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:6px;background:var(--terra)}
+
+/* help */
+.help-hero{
+  margin:14px 16px;background:var(--card);border-radius:20px;
+  padding:18px;text-align:center;border:1px solid var(--line2)
+}
+.search-bar{
+  margin:10px 16px;background:var(--card);border-radius:30px;
+  border:1.5px solid var(--line);padding:11px 16px;display:flex;
+  align-items:center;gap:8px
+}
+.contact-row{display:flex;gap:10px;padding:0 16px;margin-bottom:14px}
+.contact-btn{
+  flex:1;background:var(--card);border:1.5px solid var(--line2);
+  border-radius:16px;padding:12px 8px;text-align:center;cursor:pointer
+}
+.faq-item{padding:13px 18px;border-bottom:1px solid var(--line2);cursor:pointer}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:13px;font-weight:600;color:var(--txt);display:flex;justify-content:space-between;align-items:center}
+.faq-a{font-size:11px;color:var(--txt3);line-height:1.5;margin-top:6px}
+
+.logout-row{
+  display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer
+}
+.logout-ico{width:40px;height:40px;border-radius:12px;background:var(--redl);display:flex;align-items:center;justify-content:center}
+.spacer{height:12px}
+.version{text-align:center;font-size:10px;color:var(--txt3);padding:8px 0 16px;letter-spacing:.04em}
+
+/* section divider */
+.sdiv{height:8px;background:var(--terra-ll)}
+</style>
+
+<div class="outer">
+
+<div class="top-row">
+  <div>
+    <div class="app-title">Account Section</div>
+    <div class="app-sub" style="font-family:'Poppins',sans-serif">EventEase · iOS + Android · Warm palette</div>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="pill active" id="sw-ios" onclick="setPlatform('ios')" style="font-family:'Poppins',sans-serif">iOS</button>
+    <button class="pill" id="sw-and" onclick="setPlatform('android')" style="font-family:'Poppins',sans-serif">Android</button>
+  </div>
+</div>
+
+<div class="screen-pills" id="screen-pills">
+  <button class="pill active" onclick="setScreen('profile')" style="font-family:'Poppins',sans-serif">Profile</button>
+  <button class="pill" onclick="setScreen('personal')" style="font-family:'Poppins',sans-serif">Personal Info</button>
+  <button class="pill" onclick="setScreen('addresses')" style="font-family:'Poppins',sans-serif">Addresses</button>
+  <button class="pill" onclick="setScreen('payments')" style="font-family:'Poppins',sans-serif">Payment Methods</button>
+  <button class="pill" onclick="setScreen('notifications')" style="font-family:'Poppins',sans-serif">Notifications</button>
+  <button class="pill" onclick="setScreen('security')" style="font-family:'Poppins',sans-serif">Security</button>
+  <button class="pill" onclick="setScreen('help')" style="font-family:'Poppins',sans-serif">Help & Support</button>
+</div>
+
+<div class="phones-row">
+
+  <!-- iOS -->
+  <div class="phone-col" id="ios-col">
+    <div class="phone-os-label" style="font-family:'Poppins',sans-serif">iOS · iPhone 15 Pro</div>
+    <div class="ios">
+      <div class="ios-notch"><div class="notch-pill"></div><div class="notch-dot"></div></div>
+      <div class="ios-body">
+        <div class="status-ios">
+          <span style="font-family:'Poppins',sans-serif">10:09</span>
+          <div style="display:flex;gap:5px;align-items:center">
+            <div class="sig-bars">
+              <div class="sig-bar" style="height:4px"></div>
+              <div class="sig-bar" style="height:6px"></div>
+              <div class="sig-bar" style="height:8px"></div>
+              <div class="sig-bar" style="height:10px"></div>
+            </div>
+            <svg width="14" height="11" viewBox="0 0 14 11" fill="none"><path d="M7 2.2C9 .8 11.5 1 13 2.5" stroke="#5C3D2A" stroke-width="1.5" stroke-linecap="round"/><path d="M7 2.2C5 .8 2.5 1 1 2.5" stroke="#5C3D2A" stroke-width="1.5" stroke-linecap="round"/><path d="M7 5.5c.9-.7 2.1-.6 3 0" stroke="#5C3D2A" stroke-width="1.5" stroke-linecap="round"/><path d="M7 5.5c-.9-.7-2.1-.6-3 0" stroke="#5C3D2A" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="8.5" r="1.2" fill="#5C3D2A"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#5C3D2A" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#5C3D2A"/><path d="M23 4.5v3a1.5 1.5 0 000-3z" fill="#5C3D2A" fill-opacity=".4"/></svg>
+          </div>
+        </div>
+        <div class="phone-scroll" id="ios-screen"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Android -->
+  <div class="phone-col" id="android-col" style="display:none">
+    <div class="phone-os-label" style="font-family:'Poppins',sans-serif">Android · Pixel 8</div>
+    <div class="android">
+      <div class="android-punch"></div>
+      <div class="android-body">
+        <div class="status-android">
+          <span style="font-family:'Poppins',sans-serif">10:09</span>
+          <div style="display:flex;gap:4px;align-items:center">
+            <div class="sig-bars">
+              <div class="sig-bar" style="height:3px"></div>
+              <div class="sig-bar" style="height:5px"></div>
+              <div class="sig-bar" style="height:7px"></div>
+              <div class="sig-bar" style="height:9px"></div>
+            </div>
+            <svg width="12" height="10" viewBox="0 0 14 11" fill="none"><path d="M7 2.2C9 .8 11.5 1 13 2.5" stroke="#5C3D2A" stroke-width="1.5" stroke-linecap="round"/><path d="M7 2.2C5 .8 2.5 1 1 2.5" stroke="#5C3D2A" stroke-width="1.5" stroke-linecap="round"/><path d="M7 5.5c.9-.7 2.1-.6 3 0" stroke="#5C3D2A" stroke-width="1.5" stroke-linecap="round"/><path d="M7 5.5c-.9-.7-2.1-.6-3 0" stroke="#5C3D2A" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="8.5" r="1.2" fill="#5C3D2A"/></svg>
+            <svg width="22" height="11" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#5C3D2A" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#5C3D2A"/><path d="M23 4.5v3a1.5 1.5 0 000-3z" fill="#5C3D2A" fill-opacity=".4"/></svg>
+          </div>
+        </div>
+        <div class="phone-scroll" id="android-screen"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+let curPlatform = 'ios';
+let curScreen = 'profile';
+
+const chevronSvg = `<svg class="chevron-svg" viewBox="0 0 16 16"><polyline points="6 4 10 8 6 12"/></svg>`;
+const editSvg = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2l3 3-9 9H2v-3z"/></svg>`;
+const checkSvg = `<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>`;
+
+const isIos = () => curPlatform === 'ios';
+
+function navBar(title, actionLabel, backLabel) {
+  if (isIos()) {
+    return `<div class="navbar" style="justify-content:space-between">
+      <span style="font-size:13px;font-weight:600;color:var(--terra);cursor:pointer;min-width:50px" onclick="setScreen('profile')">← Back</span>
+      <span class="nav-title">${title}</span>
+      <span class="nav-action" style="min-width:50px;text-align:right">${actionLabel||''}</span>
+    </div>`;
+  } else {
+    return `<div class="navbar">
+      <div class="nav-back" onclick="setScreen('profile')">
+        <svg class="nav-back-svg" viewBox="0 0 16 16"><polyline points="10 4 6 8 10 12"/></svg>
+      </div>
+      <span class="nav-title">${title}</span>
+      ${actionLabel ? `<span class="nav-action">${actionLabel}</span>` : '<span style="width:34px"></span>'}
+    </div>`;
+  }
+}
+
+function bottomNav(active) {
+  const items = [{ico:'🏠',lbl:'Home'},{ico:'🔍',lbl:'Search'},{ico:'📋',lbl:'Bookings'},{ico:'🤍',lbl:'Wishlist'},{ico:'👤',lbl:'Profile'}];
+  return `<div class="bottom-nav">
+    ${items.map(it => `
+    <div class="bnav-item${it.lbl===active?' active':''}">
+      <span style="font-size:${it.lbl===active?'19':'18'}px">${it.ico}</span>
+      <span class="bnav-lbl">${it.lbl}</span>
+      ${it.lbl===active?'<div class="bnav-dot"></div>':''}
+    </div>`).join('')}
+  </div>`;
+}
+
+function toggle(on) {
+  return `<div class="toggle-wrap"><div class="toggle-track ${on?'on':'off'}"></div><div class="toggle-thumb ${on?'on':'off'}"></div></div>`;
+}
+
+const screens = {
+
+  profile() {
+    return `
+    <div class="profile-hero">
+      <div class="avatar-wrap" style="position:relative;width:82px;height:82px;margin:12px auto 12px">
+        <div class="avatar-circle">P</div>
+        <div class="verify-badge-wrap">${checkSvg}</div>
+        <div class="edit-badge">${editSvg}</div>
+      </div>
+      <div class="prof-name">Priya Sharma</div>
+      <div class="prof-info">priya.sharma@gmail.com · +91 98765 43210</div>
+      <div class="stat-pills">
+        <div class="stat-pill"><span class="stat-num">12</span><span class="stat-lbl">Bookings</span></div>
+        <div class="stat-pill"><span class="stat-num" style="color:var(--terra)">3</span><span class="stat-lbl">Upcoming</span></div>
+        <div class="stat-pill"><span class="stat-num" style="color:var(--green);font-size:15px">₹42K</span><span class="stat-lbl">Spent</span></div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">Account</div>
+      ${[
+        {ico:'👤',bg:'#FFF0E6',title:'Personal Information',sub:'Name, phone, email',action:'personal'},
+        {ico:'📍',bg:'#FFF0E6',title:'My Addresses',sub:'Home, work & saved',action:'addresses'},
+        {ico:'💳',bg:'#FFF0E6',title:'Payment Methods',sub:'UPI, cards, net banking',action:'payments'},
+      ].map(r=>`
+      <div class="row" onclick="setScreen('${r.action}')">
+        <div class="row-icon" style="background:${r.bg}"><span style="font-size:18px">${r.ico}</span></div>
+        <div class="row-text">
+          <div class="row-title">${r.title}</div>
+          <div class="row-sub">${r.sub}</div>
+        </div>
+        <div class="row-right">${chevronSvg}</div>
+      </div>`).join('')}
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">Preferences</div>
+      ${[
+        {ico:'🔔',bg:'#FEF3C7',title:'Notifications',sub:'Booking alerts & offers',action:'notifications',badge:'2 new'},
+        {ico:'🔒',bg:'#FEF3C7',title:'Security & Privacy',sub:'Password, 2FA, biometrics',action:'security'},
+        {ico:'🌐',bg:'#FEF3C7',title:'Language & Region',sub:'English · India (₹)',action:''},
+      ].map(r=>`
+      <div class="row" onclick="${r.action?`setScreen('${r.action}')`:''}">
+        <div class="row-icon" style="background:${r.bg}"><span style="font-size:18px">${r.ico}</span></div>
+        <div class="row-text">
+          <div class="row-title">${r.title}</div>
+          <div class="row-sub">${r.sub}</div>
+        </div>
+        <div class="row-right">
+          ${r.badge?`<span class="badge-pill badge-terra">${r.badge}</span>`:''}
+          ${chevronSvg}
+        </div>
+      </div>`).join('')}
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">Support</div>
+      ${[
+        {ico:'❓',bg:'var(--terra-l)',title:'Help & Support',sub:'FAQs, chat with us',action:'help'},
+        {ico:'⭐',bg:'var(--terra-l)',title:'Rate EventEase',sub:'Share your experience',action:''},
+        {ico:'📄',bg:'var(--terra-l)',title:'Terms & Privacy',sub:'Legal information',action:''},
+      ].map(r=>`
+      <div class="row" onclick="${r.action?`setScreen('${r.action}')`:''}">
+        <div class="row-icon" style="background:${r.bg}"><span style="font-size:18px">${r.ico}</span></div>
+        <div class="row-text">
+          <div class="row-title">${r.title}</div>
+          <div class="row-sub">${r.sub}</div>
+        </div>
+        <div class="row-right">${chevronSvg}</div>
+      </div>`).join('')}
+    </div>
+
+    <div class="section-card">
+      <div class="logout-row">
+        <div class="row-icon" style="background:var(--redl)"><span style="font-size:18px">⏏</span></div>
+        <div class="row-title" style="color:var(--red);font-size:14px;font-weight:600">Log Out</div>
+      </div>
+    </div>
+
+    <div class="version">EventEase v1.4.2 · Made with ❤ in India</div>
+    ${bottomNav('Profile')}`;
+  },
+
+  personal() {
+    return `
+    ${navBar('Personal Info', isIos()?'Save':'')}
+    <div style="padding:4px 0 0">
+      <div style="text-align:center;padding:6px 0 16px">
+        <div style="position:relative;width:82px;height:82px;margin:0 auto 8px">
+          <div class="avatar-circle">P</div>
+          <div class="edit-badge">${editSvg}</div>
+        </div>
+        <span style="font-size:12px;font-weight:600;color:var(--terra);cursor:pointer">Change Photo</span>
+      </div>
+    </div>
+    <div class="form-wrap">
+      ${[
+        {lbl:'Full Name',val:'Priya Sharma',active:false,type:'text'},
+        {lbl:'Mobile Number',val:'+91 98765 43210',active:false,type:'tel'},
+        {lbl:'Email Address',val:'priya.sharma@gmail.com',active:true,type:'email'},
+        {lbl:'Date of Birth',val:'14 March 1995',active:false,type:'text'},
+      ].map(f=>`
+      <div class="form-group">
+        <label class="form-lbl">${f.lbl}</label>
+        <div class="form-inp${f.active?' active':''}">${f.val}</div>
+      </div>`).join('')}
+      <div class="form-group">
+        <label class="form-lbl">Gender</label>
+        <div style="display:flex;gap:8px">
+          ${['Female','Male','Other'].map((g,i)=>`
+          <div style="flex:1;padding:10px;border-radius:14px;border:${i===0?'2px solid var(--terra)':'1.5px solid var(--line)'};background:${i===0?'var(--terra-l)':'var(--card)'};text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:${i===0?'var(--terra)':'var(--txt3)'}">${g}</div>`).join('')}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-lbl">City</label>
+        <div class="form-inp" style="display:flex;justify-content:space-between;align-items:center">
+          <span>Bengaluru, Karnataka</span>
+          <span style="font-size:11px;color:var(--terra);font-weight:600">Change</span>
+        </div>
+      </div>
+    </div>
+    ${isIos()?'':`<div class="cta-btn">Save Changes</div>`}
+    <div class="spacer"></div>`;
+  },
+
+  addresses() {
+    return `
+    ${navBar('My Addresses', '+ Add')}
+    <div style="padding-top:6px">
+
+    <div class="addr-card">
+      <div class="addr-head">
+        <div class="addr-ico" style="background:#FFF0E6">🏠</div>
+        <div class="addr-info">
+          <div class="addr-title-row">
+            <span class="addr-name">Home</span>
+            <span class="addr-default">Default</span>
+          </div>
+          <div class="addr-txt">14, 3rd Main, Koramangala 5th Block,<br>Bengaluru – 560 034, Karnataka</div>
+        </div>
+      </div>
+      <div class="addr-actions">
+        <div class="addr-act-btn">Edit</div>
+        <div class="addr-act-btn">Directions</div>
+      </div>
+    </div>
+
+    <div class="addr-card">
+      <div class="addr-head">
+        <div class="addr-ico" style="background:var(--amberl)">🏢</div>
+        <div class="addr-info">
+          <div class="addr-title-row"><span class="addr-name">Work</span></div>
+          <div class="addr-txt">Prestige Tech Park, Outer Ring Road,<br>Marathahalli, Bengaluru – 560 037</div>
+        </div>
+      </div>
+      <div class="addr-actions">
+        <div class="addr-act-btn">Edit</div>
+        <div class="addr-act-btn">Set Default</div>
+        <div class="addr-act-btn red">Delete</div>
+      </div>
+    </div>
+
+    <div class="addr-card">
+      <div class="addr-head">
+        <div class="addr-ico" style="background:var(--greenl)">🎉</div>
+        <div class="addr-info">
+          <div class="addr-title-row"><span class="addr-name">Parents' Home</span></div>
+          <div class="addr-txt">45, Dollars Colony, RMV 2nd Stage,<br>Bengaluru – 560 094, Karnataka</div>
+        </div>
+      </div>
+      <div class="addr-actions">
+        <div class="addr-act-btn">Edit</div>
+        <div class="addr-act-btn">Set Default</div>
+        <div class="addr-act-btn red">Delete</div>
+      </div>
+    </div>
+
+    <div class="add-card">
+      <div style="font-size:22px;color:var(--terra);margin-bottom:5px">＋</div>
+      <div style="font-size:13px;font-weight:700;color:var(--terra)">Add New Address</div>
+      <div style="font-size:11px;color:var(--txt3);margin-top:3px">Save addresses for faster booking</div>
+    </div>
+
+    <div style="margin:0 16px;background:var(--terra-l);border-radius:14px;padding:12px 14px;display:flex;gap:8px;align-items:center">
+      <span style="font-size:16px">📍</span>
+      <span style="font-size:11px;color:var(--terra);font-weight:500;line-height:1.4">EventEase uses your saved addresses to show vendors nearby and autofill venue details.</span>
+    </div>
+
+    <div class="spacer"></div></div>`;
+  },
+
+  payments() {
+    return `
+    ${navBar('Payment Methods', '+ Add')}
+    <div style="padding-top:6px">
+
+    <div style="margin:0 16px 12px;background:var(--terra-l);border-radius:14px;padding:12px 14px;display:flex;gap:8px;align-items:center;border:1px solid rgba(212,83,26,.15)">
+      <span style="font-size:16px">🔒</span>
+      <span style="font-size:11px;color:var(--terra);font-weight:500;line-height:1.4">All transactions secured by Razorpay. Card details are never stored on our servers.</span>
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">UPI</div>
+      ${[
+        {logo:'UPI',cls:'pay-upi',name:'priya@okaxis',sub:'Axis Bank UPI',isDefault:true,selected:true},
+        {logo:'GPay',cls:'pay-gpay',name:'priya@oksbi',sub:'Google Pay · SBI',isDefault:false,selected:false},
+      ].map(p=>`
+      <div class="pay-card">
+        <div class="pay-logo ${p.cls}">${p.logo}</div>
+        <div class="pay-info">
+          <div class="pay-name">${p.name}</div>
+          <div class="pay-sub">${p.sub}</div>
+        </div>
+        ${p.isDefault?`<span class="badge-pill badge-amber" style="font-size:10px">Default</span>`:''}
+        <div class="radio${p.selected?' on':''}">${p.selected?`<div class="radio-dot"></div>`:''}</div>
+      </div>`).join('')}
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">Debit / Credit Cards</div>
+      ${[
+        {logo:'VISA',cls:'pay-visa',name:'•••• •••• •••• 4521',sub:'HDFC Visa Credit · Exp 08/28',selected:false},
+        {logo:'RuPay',cls:'pay-rupay',name:'•••• •••• •••• 7832',sub:'SBI RuPay Debit · Exp 03/27',selected:false},
+      ].map(p=>`
+      <div class="pay-card">
+        <div class="pay-logo ${p.cls}">${p.logo}</div>
+        <div class="pay-info">
+          <div class="pay-name">${p.name}</div>
+          <div class="pay-sub">${p.sub}</div>
+        </div>
+        <div class="radio"></div>
+      </div>`).join('')}
+    </div>
+
+    <div class="add-card" style="margin-top:4px">
+      <div style="font-size:22px;color:var(--terra);margin-bottom:5px">＋</div>
+      <div style="font-size:13px;font-weight:700;color:var(--terra)">Add Payment Method</div>
+      <div style="font-size:11px;color:var(--txt3);margin-top:3px">UPI · Debit/Credit card · Net Banking</div>
+    </div>
+
+    <div class="spacer"></div></div>`;
+  },
+
+  notifications() {
+    return `
+    ${navBar('Notifications', 'Mark all read')}
+    <div>
+    <div style="padding:10px 18px 4px;font-size:10px;font-weight:700;color:var(--txt3);letter-spacing:.06em;text-transform:uppercase">Today</div>
+    <div class="section-card">
+      ${[
+        {ico:'✅',bg:'var(--greenl)',title:'Booking Confirmed',msg:"Ravi's Catering Co. accepted your booking for 15 Jun. Tap to pay advance and confirm.",time:'2 hr ago',unread:true},
+        {ico:'⏰',bg:'var(--amberl)',title:'Event Reminder',msg:'Your event with Lens & Light Studio is in 7 days (22 Jun 2026). All set?',time:'5 hr ago',unread:true},
+      ].map(n=>`
+      <div class="notif-item" style="background:var(--terra-ll)">
+        <div class="notif-ico" style="background:${n.bg}"><span style="font-size:18px">${n.ico}</span></div>
+        <div class="notif-body">
+          <div class="notif-title">${n.title}</div>
+          <div class="notif-msg">${n.msg}</div>
+          <div class="notif-time">${n.time}</div>
+        </div>
+        <div class="unread-dot"></div>
+      </div>`).join('')}
+    </div>
+
+    <div style="padding:10px 18px 4px;font-size:10px;font-weight:700;color:var(--txt3);letter-spacing:.06em;text-transform:uppercase">Yesterday</div>
+    <div class="section-card">
+      ${[
+        {ico:'⭐',bg:'var(--terra-l)',title:'Leave a Review',msg:'How was your event with Bloom Decor? Your review helps 1,200+ families plan better.',time:'Yesterday · 4:30 PM',unread:false},
+        {ico:'💸',bg:'var(--terra-l)',title:'Payment Successful',msg:'₹5,940 advance payment confirmed for booking #BK-8821 (Catering · 15 Jun).',time:'Yesterday · 11:22 AM',unread:false},
+      ].map(n=>`
+      <div class="notif-item">
+        <div class="notif-ico" style="background:${n.bg}"><span style="font-size:18px">${n.ico}</span></div>
+        <div class="notif-body">
+          <div class="notif-title">${n.title}</div>
+          <div class="notif-msg">${n.msg}</div>
+          <div class="notif-time">${n.time}</div>
+        </div>
+      </div>`).join('')}
+    </div>
+
+    <div style="padding:10px 18px 4px;font-size:10px;font-weight:700;color:var(--txt3);letter-spacing:.06em;text-transform:uppercase">This Week</div>
+    <div class="section-card">
+      ${[
+        {ico:'🔍',bg:'#F5F0FF',title:'New Vendors Near You',msg:'14 new photographers joined EventEase in Koramangala this week.',time:'Mon · 3:00 PM',unread:false},
+        {ico:'🎁',bg:'var(--amberl)',title:'Special Offer',msg:'Book any venue this month and get ₹500 off. Use code VENUE500 at checkout.',time:'Sun · 9:00 AM',unread:false},
+      ].map(n=>`
+      <div class="notif-item">
+        <div class="notif-ico" style="background:${n.bg}"><span style="font-size:18px">${n.ico}</span></div>
+        <div class="notif-body">
+          <div class="notif-title">${n.title}</div>
+          <div class="notif-msg">${n.msg}</div>
+          <div class="notif-time">${n.time}</div>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div class="spacer"></div></div>`;
+  },
+
+  security() {
+    return `
+    ${navBar('Security & Privacy')}
+    <div>
+    <div class="sec-score">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--terra);margin-bottom:2px">Account Security</div>
+          <div style="font-size:11px;color:var(--txt3)">Good · Enable 2FA to reach Strong</div>
+        </div>
+        <span class="badge-pill badge-amber">Good</span>
+      </div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:65%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:5px">
+        <span style="font-size:10px;color:var(--txt3)">Weak</span>
+        <span style="font-size:10px;color:var(--terra);font-weight:600">65% · Good</span>
+        <span style="font-size:10px;color:var(--txt3)">Strong</span>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">Authentication</div>
+      <div class="row">
+        <div class="row-icon" style="background:#FFF0E6"><span style="font-size:18px">🔑</span></div>
+        <div class="row-text"><div class="row-title">Change Password</div><div class="row-sub">Last changed 3 months ago</div></div>
+        <div class="row-right">${chevronSvg}</div>
+      </div>
+      <div class="row">
+        <div class="row-icon" style="background:#FFF0E6"><span style="font-size:18px">🛡</span></div>
+        <div class="row-text"><div class="row-title">Two-Factor Auth (2FA)</div><div class="row-sub">SMS OTP on every login</div></div>
+        <div class="row-right">${toggle(false)}</div>
+      </div>
+      <div class="row">
+        <div class="row-icon" style="background:#FFF0E6"><span style="font-size:18px">👆</span></div>
+        <div class="row-text"><div class="row-title">Biometric Login</div><div class="row-sub">Face ID / Fingerprint enabled</div></div>
+        <div class="row-right">${toggle(true)}</div>
+      </div>
+      <div class="row">
+        <div class="row-icon" style="background:#FFF0E6"><span style="font-size:18px">📱</span></div>
+        <div class="row-text"><div class="row-title">Active Sessions</div><div class="row-sub">2 devices signed in</div></div>
+        <div class="row-right"><span class="badge-pill badge-terra">Manage</span>${chevronSvg}</div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-header">Privacy</div>
+      <div class="row">
+        <div class="row-icon" style="background:var(--amberl)"><span style="font-size:18px">🔔</span></div>
+        <div class="row-text"><div class="row-title">Notification Preferences</div><div class="row-sub">What we can send you</div></div>
+        <div class="row-right">${chevronSvg}</div>
+      </div>
+      <div class="row">
+        <div class="row-icon" style="background:var(--amberl)"><span style="font-size:18px">📊</span></div>
+        <div class="row-text"><div class="row-title">Data & Personalisation</div><div class="row-sub">How we use your data</div></div>
+        <div class="row-right">${chevronSvg}</div>
+      </div>
+      <div class="row">
+        <div class="row-icon" style="background:var(--redl)"><span style="font-size:18px">🗑</span></div>
+        <div class="row-text"><div class="row-title" style="color:var(--red)">Delete Account</div><div class="row-sub">Permanently remove all data</div></div>
+        <div class="row-right"><svg class="chevron-svg" style="stroke:var(--red)" viewBox="0 0 16 16"><polyline points="6 4 10 8 6 12"/></svg></div>
+      </div>
+    </div>
+
+    <div style="margin:0 16px 12px;background:var(--redl);border-radius:14px;padding:12px 14px;display:flex;gap:8px;align-items:center">
+      <span style="font-size:16px">⚠</span>
+      <span style="font-size:11px;color:var(--red);line-height:1.4;font-weight:500">You are signed in on 2 devices. <span style="font-weight:700;text-decoration:underline;cursor:pointer">Sign out of other devices</span></span>
+    </div>
+    <div class="spacer"></div></div>`;
+  },
+
+  help() {
+    return `
+    ${navBar('Help & Support')}
+    <div>
+    <div class="help-hero">
+      <div style="font-size:32px;margin-bottom:8px">👋</div>
+      <div style="font-size:16px;font-weight:800;color:var(--txt);margin-bottom:4px">Hi Priya, how can we help?</div>
+      <div style="font-size:12px;color:var(--txt3);line-height:1.5">Our support team is here Mon–Sat, 9 AM to 9 PM IST</div>
+    </div>
+
+    <div class="search-bar">
+      <span style="font-size:14px">🔍</span>
+      <span style="font-size:12px;color:var(--txt3)">Search help articles...</span>
+    </div>
+
+    <div class="contact-row">
+      ${[{ico:'💬',lbl:'Live Chat',sub:'Fastest'},{ico:'📞',lbl:'Call Us',sub:'1800-XXX-XXXX'},{ico:'✉',lbl:'Email Us',sub:'24hr reply'}].map(c=>`
+      <div class="contact-btn">
+        <div style="font-size:22px;margin-bottom:5px">${c.ico}</div>
+        <div style="font-size:12px;font-weight:700;color:var(--txt2)">${c.lbl}</div>
+        <div style="font-size:10px;color:var(--txt3)">${c.sub}</div>
+      </div>`).join('')}
+    </div>
+
+    <div style="padding:4px 18px 6px;font-size:10px;font-weight:700;color:var(--txt3);letter-spacing:.06em;text-transform:uppercase">Common Questions</div>
+    <div class="section-card">
+      ${[
+        {q:'How do I cancel a booking?',a:'Go to My Bookings → tap the booking → tap Cancel. Cancellations more than 7 days before the event receive a full refund.',open:true},
+        {q:'When is my refund processed?',a:'',open:false},
+        {q:'How do I contact my vendor directly?',a:'',open:false},
+        {q:'What does the 30% advance cover?',a:'',open:false},
+        {q:'How are vendors verified on EventEase?',a:'',open:false},
+      ].map(f=>`
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>${f.q}</span>
+          <span style="color:var(--terra);font-size:18px;font-weight:400">${f.open?'−':'+'}</span>
+        </div>
+        ${f.open?`<div class="faq-a">${f.a}</div>`:''}
+      </div>`).join('')}
+    </div>
+
+    <div style="margin:8px 16px;background:var(--terra-l);border-radius:16px;padding:14px;display:flex;gap:10px;align-items:center;border:1px solid rgba(212,83,26,.15)">
+      <span style="font-size:22px">📧</span>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--terra);margin-bottom:2px">Still need help?</div>
+        <div style="font-size:11px;color:var(--txt3)">Write to support@eventease.in — we reply within 24 hours.</div>
+      </div>
+    </div>
+    <div class="spacer"></div></div>`;
+  },
+};
+
+function render(platform, screenId) {
+  const el = document.getElementById(platform + '-screen');
+  if (el && screens[screenId]) {
+    curPlatform = platform;
+    el.innerHTML = screens[screenId]();
+  }
+}
+
+function setScreen(id) {
+  curScreen = id;
+  document.querySelectorAll('.screen-pills .pill').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('onclick').includes(`'${id}'`));
+  });
+  render('ios', id);
+  render('android', id);
+}
+
+function setPlatform(p) {
+  curPlatform = p;
+  document.getElementById('sw-ios').classList.toggle('active', p==='ios');
+  document.getElementById('sw-and').classList.toggle('active', p==='android');
+  document.getElementById('ios-col').style.display = p==='ios'?'block':'none';
+  document.getElementById('android-col').style.display = p==='android'?'block':'none';
+  render(p, curScreen);
+}
+
+setScreen('profile');
+</script>
